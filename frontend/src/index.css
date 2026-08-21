@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-space-950 text-ink font-body antialiased;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(53, 230, 196, 0.08), transparent),
+      radial-gradient(ellipse 60% 40% at 90% 10%, rgba(139, 127, 255, 0.06), transparent);
+    background-attachment: fixed;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display;
+  }
+  ::selection {
+    @apply bg-signal/30 text-ink;
+  }
+  :focus-visible {
+    outline: 2px solid theme('colors.signal.DEFAULT');
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-space-900/80 border border-space-border rounded-2xl backdrop-blur-sm;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-signal text-space-950 font-semibold px-5 py-2.5 transition-all hover:shadow-glow hover:brightness-110 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-space-800 border border-space-border text-ink font-medium px-5 py-2.5 transition-all hover:border-signal/50 hover:text-signal active:scale-[0.98];
+  }
+  .input {
+    @apply w-full bg-space-900 border border-space-border rounded-xl px-4 py-2.5 text-ink placeholder:text-ink-faint focus:border-signal/60 focus:ring-1 focus:ring-signal/40 outline-none transition-colors;
+  }
+  .label {
+    @apply block text-sm font-medium text-ink-muted mb-1.5;
+  }
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-mono;
+  }
+}

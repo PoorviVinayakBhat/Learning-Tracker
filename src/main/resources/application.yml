@@ -1,0 +1,54 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: learning-tracker
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/learning_tracker?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+    open-in-view: false
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:ThisIsADevOnlySecretKeyPleaseChangeInProdEnvironment123456}
+    expiration-ms: 86400000        # 24h access token
+    refresh-expiration-ms: 604800000 # 7d refresh token
+
+  cors:
+    allowed-origins: ${CORS_ORIGINS:http://localhost:3000,http://localhost:5173}
+
+  ai:
+    # Pluggable AI provider - defaults to Anthropic Claude API.
+    # Set app.ai.provider=openai to switch, or point base-url at any OpenAI-compatible endpoint.
+    provider: ${AI_PROVIDER:anthropic}
+    api-key: ${AI_API_KEY:}
+    base-url: ${AI_BASE_URL:https://api.anthropic.com/v1/messages}
+    model: ${AI_MODEL:claude-sonnet-4-6}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
+
+logging:
+  level:
+    com.learningtracker: INFO
